@@ -1,0 +1,1062 @@
+# PRODUCT REQUIREMENTS DOCUMENT (PRD)
+## PharmaReturn — MVP Version 1.0
+
+**Product:** PharmaReturn  
+**Category:** B2B SaaS / Pharmaceutical Distribution  
+**Target Market:** India  
+**Initial Customer Segment:** Pharmaceutical distributors and stockists  
+**Platform:** Web application  
+**Document Version:** 1.0  
+**Development Timeline:** 12 weeks  
+**Team:** 2 developers  
+**Indicative Budget:** ₹10,000–₹30,000 (excluding salaries and major third-party integration costs)
+
+---
+
+# 1. Product Overview
+
+### 1.1 Product Vision
+
+PharmaReturn is a pharmaceutical inventory return and financial recovery management platform that helps pharmaceutical distributors identify eligible expired and near-expiry medicines, manage supplier return requests, track approvals and reconcile credit notes.
+
+The product aims to reduce financial losses, manual administrative work and missed supplier credits.
+
+### 1.2 Problem Statement
+
+Pharmaceutical distributors handle thousands of medicine batches with different expiry dates, suppliers and return conditions.
+
+When medicines approach expiry or become expired, distributors often face several operational problems:
+
+- Difficulty identifying which batches are eligible for returns.
+- Manual checking of supplier-specific return policies.
+- Missed return deadlines.
+- Time-consuming preparation of return documentation.
+- Difficulty tracking supplier approvals and collections.
+- Delays in receiving credit notes.
+- Discrepancies between expected and received credit amounts.
+- Lack of visibility into total recoverable inventory value.
+
+Existing pharmacy and distribution software may offer inventory and expiry tracking, but the complete financial recovery workflow can remain fragmented.
+
+### 1.3 Proposed Solution
+
+PharmaReturn provides one centralised platform to manage the complete medicine return lifecycle.
+
+**Core workflow:**
+
+Inventory Import → Batch Identification → Return Eligibility → Return Request → Supplier Follow-up → Approval → Credit Note → Reconciliation → Financial Recovery Report.
+
+### 1.4 Product Positioning
+
+PharmaReturn is not another pharmacy billing or inventory management system.
+
+It is a specialised **Pharmaceutical Returns and Credit Recovery Management Platform** that works alongside existing inventory systems.
+
+---
+
+# 2. Target Users
+
+### Primary User: Pharmaceutical Distributor / Stockist
+
+**Profile:**
+- Owns or manages a pharmaceutical distribution business.
+- Handles inventory from multiple manufacturers.
+- Manages medicine batches and expiry dates.
+- Processes supplier returns regularly.
+- Uses pharmacy ERP software, spreadsheets or manual records.
+
+**Pain points:**
+- Unidentified near-expiry inventory.
+- Missed return opportunities.
+- Manual supplier communication.
+- Untracked return requests.
+- Delayed or incorrect credit notes.
+
+### Secondary User: Inventory Manager
+
+Responsible for:
+- Importing stock data.
+- Identifying returnable batches.
+- Preparing return requests.
+- Updating return statuses.
+- Uploading supporting documents.
+
+### Secondary User: Accountant
+
+Responsible for:
+- Recording expected credits.
+- Uploading supplier credit notes.
+- Reconciling credit amounts.
+- Identifying discrepancies.
+- Generating financial reports.
+
+### Future User: Supplier / Manufacturer
+
+A supplier portal may eventually allow manufacturers and suppliers to review return requests, approve claims and update credit status.
+
+This is outside the initial MVP.
+
+---
+
+# 3. Product Goals and Objectives
+
+### Primary Goals
+
+1. Centralise expired and near-expiry medicine return management.
+2. Reduce time spent identifying eligible batches.
+3. Reduce missed return deadlines.
+4. Track every return request from submission to closure.
+5. Reconcile expected credits against actual credit notes.
+6. Give distributors visibility into money recovered and outstanding.
+
+### Success Metrics
+
+| Metric | MVP Target |
+|---|---:|
+| Inventory import success rate | 95%+ |
+| Return requests created per active customer | 10+ monthly |
+| Return requests with complete status tracking | 90%+ |
+| Credit notes reconciled | 80%+ |
+| Time to import a standard inventory file | Under 5 minutes |
+| Pilot customers | 3–5 |
+| Weekly active usage among pilot customers | 70%+ |
+
+These are initial product targets, not existing performance claims.
+
+---
+
+# 4. MVP Scope
+
+The MVP should focus on one complete workflow rather than attempting to build a complete pharmaceutical ERP.
+
+### P0 — Must Have
+
+1. User authentication.
+2. Distributor business profile.
+3. Dashboard.
+4. Inventory import through Excel/CSV.
+5. Medicine batch management.
+6. Supplier management.
+7. Supplier-specific return-policy configuration.
+8. Return eligibility calculation.
+9. Return request creation.
+10. Return status tracking.
+11. Credit-note upload.
+12. Expected-versus-actual credit reconciliation.
+13. Basic notifications.
+14. Financial recovery reports.
+
+### P1 — Should Have
+
+1. Bulk batch scanning through barcode input.
+2. PDF return-request generation.
+3. Email reminders.
+4. Downloadable reports.
+5. Multiple staff accounts with role permissions.
+6. Dashboard filters by supplier, date and status.
+
+### P2 — Future Releases
+
+1. WhatsApp Business API integration.
+2. OCR for invoices and credit notes.
+3. Direct integrations with pharmacy ERP products.
+4. Supplier portal.
+5. Automated supplier-policy recommendations.
+6. AI-based return prediction.
+7. Multi-branch inventory management.
+8. Mobile application.
+
+---
+
+# 5. Functional Requirements
+
+## Module 1: Authentication and Business Setup
+
+**Objective:** Allow pharmaceutical distributors to securely register and manage their business accounts.
+
+### Features
+
+- Email and password registration.
+- Login and logout.
+- Password reset.
+- Business name and contact details.
+- GSTIN field (optional at initial registration).
+- Business address.
+- User profile management.
+
+### User Story
+
+As a distributor, I want to create an account so that I can manage my medicine returns and recovery information in one place.
+
+### Acceptance Criteria
+
+- Users can register and log in.
+- Each business has isolated data.
+- Users cannot access another business's inventory or financial records.
+- Password reset works securely.
+
+---
+
+## Module 2: Dashboard
+
+**Objective:** Display the distributor's overall return and recovery position.
+
+### Dashboard Components
+
+**Summary Cards:**
+
+- Total inventory batches.
+- Near-expiry inventory value.
+- Expired inventory value.
+- Return-eligible inventory value.
+- Pending return requests.
+- Pending credit value.
+- Total recovered value.
+
+**Additional Sections:**
+
+- Recently created return requests.
+- Upcoming supplier return deadlines.
+- Pending supplier approvals.
+- Credit-note discrepancies.
+- Top suppliers by pending credit value.
+
+### User Story
+
+As a distributor, I want to see my total recoverable inventory and pending credits so that I can prioritise important returns.
+
+### Acceptance Criteria
+
+- Dashboard values update after relevant transactions.
+- Users can filter information by date and supplier.
+- Each summary card links to the corresponding detailed records.
+- Financial values are displayed in INR.
+
+---
+
+## Module 3: Inventory Management
+
+**Objective:** Allow users to import and manage medicine batch information.
+
+### Inventory Import
+
+Users should be able to upload an Excel or CSV file containing:
+
+| Field | Required |
+|---|---|
+| Medicine name | Yes |
+| Manufacturer | Yes |
+| Batch number | Yes |
+| Expiry date | Yes |
+| Quantity | Yes |
+| Purchase price per unit | Yes |
+| Supplier | Yes |
+| Invoice number | Recommended |
+| Invoice date | Recommended |
+
+### Features
+
+- Upload Excel/CSV.
+- Preview uploaded records.
+- Validate required fields.
+- Highlight missing or invalid data.
+- Detect duplicate batch records.
+- Allow users to correct errors.
+- Confirm import.
+- View imported inventory.
+
+### Inventory Table
+
+| Medicine | Batch | Expiry | Quantity | Supplier | Value |
+|---|---|---|---:|---|---:|
+| Sample Medicine A | B001 | 12/2026 | 100 | Supplier A | ₹5,000 |
+| Sample Medicine B | B002 | 01/2027 | 50 | Supplier B | ₹3,000 |
+
+*Illustrative records only.*
+
+### User Story
+
+As an inventory manager, I want to upload my existing stock file so that I do not need to enter every medicine manually.
+
+### Acceptance Criteria
+
+- Valid CSV/XLSX files can be imported.
+- Invalid records are highlighted before import.
+- Duplicate records are not silently added.
+- Imported batch records are visible in inventory.
+- Users can manually add, edit and archive inventory records.
+- The system maintains an import history.
+
+---
+
+## Module 4: Supplier Management
+
+**Objective:** Maintain supplier information and return conditions.
+
+### Supplier Details
+
+- Supplier name.
+- Contact person.
+- Email.
+- Phone number.
+- Address.
+- GSTIN (optional).
+- Return-policy notes.
+- Active/inactive status.
+
+### Return Policy Configuration
+
+Each supplier should have configurable rules.
+
+| Policy Field | Example |
+|---|---|
+| Return window | 90 days before expiry |
+| Expired stock accepted | Yes / No |
+| Minimum remaining shelf life | 90 days |
+| Credit method | Credit note / Replacement |
+| Return conditions | Configurable notes |
+| Policy source | Supplier document / Manual confirmation |
+| Last verified date | Date |
+
+Important: These are example settings, not universal pharmaceutical return rules.
+
+### User Story
+
+As a distributor, I want to maintain different return conditions for each supplier so that I can identify which batches may qualify for return.
+
+### Acceptance Criteria
+
+- Users can create and edit suppliers.
+- Each supplier can have a separate policy.
+- Policy changes are recorded.
+- Users can identify unverified policies.
+- The system must not present unverified policies as confirmed manufacturer rules.
+
+---
+
+## Module 5: Return Eligibility Engine
+
+**Objective:** Automatically identify batches that may qualify for return.
+
+### Eligibility Logic
+
+The system should evaluate:
+
+1. Medicine expiry date.
+2. Supplier return policy.
+3. Remaining shelf life.
+4. Whether expired stock is accepted.
+5. Return deadline.
+6. Relevant purchase or invoice information, where required.
+
+### Example
+
+Medicine expiry date: 31 December 2026.
+
+Supplier policy: Returns accepted up to 90 days before expiry.
+
+The system identifies the batch as approaching its return window and displays an alert.
+
+### Eligibility Statuses
+
+- Eligible.
+- Approaching eligibility.
+- Not yet eligible.
+- Expired.
+- Ineligible.
+- Policy not configured.
+- Manual verification required.
+
+### Important Business Rule
+
+Eligibility is not the same as supplier approval.
+
+PharmaReturn should display the eligibility result as an internal estimate based on configured policy information. Final acceptance remains subject to supplier confirmation.
+
+### User Story
+
+As an inventory manager, I want the system to identify potentially returnable batches automatically so that I do not miss supplier deadlines.
+
+### Acceptance Criteria
+
+- Eligibility is calculated using supplier-specific rules.
+- Users can see why a batch was classified in a particular way.
+- Unconfigured policies do not produce false eligibility claims.
+- Users can override an eligibility result with a reason.
+- Policy changes trigger recalculation of affected batches.
+
+---
+
+## Module 6: Return Request Management
+
+**Objective:** Allow distributors to create and track medicine return requests.
+
+### Return Request Creation
+
+Users should be able to:
+
+- Select a supplier.
+- Select eligible batches.
+- Enter return quantities.
+- Review expected return value.
+- Add remarks.
+- Attach supporting documents.
+- Generate a return request reference number.
+
+### Return Request Information
+
+Each request should contain:
+
+- Unique request ID.
+- Supplier.
+- Medicine name.
+- Batch number.
+- Expiry date.
+- Quantity.
+- Unit purchase price.
+- Expected credit amount.
+- Submission date.
+- Supporting documents.
+- Current status.
+
+### Return Statuses
+
+1. Draft.
+2. Submitted.
+3. Awaiting supplier response.
+4. Approved.
+5. Partially approved.
+6. Rejected.
+7. Pickup scheduled.
+8. Collected.
+9. Credit pending.
+10. Partially credited.
+11. Credited.
+12. Closed.
+
+Users should be able to update statuses manually in the MVP.
+
+### User Story
+
+As a distributor, I want to create a return request containing all necessary batch information so that I can manage the return process systematically.
+
+### Acceptance Criteria
+
+- A request can contain multiple medicine batches.
+- A unique ID is generated for each request.
+- Users can attach relevant documents.
+- Every status update is timestamped.
+- Users can view the complete request history.
+- Rejected requests require a reason.
+
+---
+
+## Module 7: Credit Note Management
+
+**Objective:** Track the financial value of medicine returns and identify discrepancies.
+
+This is the most important differentiating feature of PharmaReturn.
+
+### Features
+
+- Upload credit-note documents.
+- Enter credit-note number.
+- Enter supplier details.
+- Enter credit amount.
+- Link credit notes to return requests.
+- Record credit-note date.
+- Track pending credits.
+- Support partial credits.
+- Identify amount discrepancies.
+
+### Example
+
+| Description | Amount |
+|---|---:|
+| Expected credit | ₹80,000 |
+| Supplier-approved amount | ₹65,000 |
+| Actual credit note | ₹58,000 |
+| Unreconciled difference | ₹7,000 |
+
+The system should flag the ₹7,000 difference for investigation.
+
+### Reconciliation Statuses
+
+- Not credited.
+- Partially credited.
+- Fully credited.
+- Credit discrepancy.
+- Under review.
+- Reconciled.
+
+### User Story
+
+As an accountant, I want to compare expected return credits with actual supplier credit notes so that I can identify missing or incorrect credits.
+
+### Acceptance Criteria
+
+- Credit notes can be uploaded and recorded.
+- Credit notes can be associated with return requests.
+- The system calculates the difference automatically.
+- Partial credits are supported.
+- Users can mark discrepancies as resolved.
+- Adjustments and reconciliation changes are logged.
+
+---
+
+## Module 8: Notifications and Reminders
+
+**Objective:** Help users avoid missed return deadlines and outstanding credit follow-ups.
+
+### MVP Notifications
+
+- Near-expiry inventory alerts.
+- Upcoming return deadlines.
+- Return requests awaiting updates.
+- Approved returns awaiting collection.
+- Pending credit notes.
+- Credit discrepancies.
+
+### Notification Channels
+
+MVP:
+- In-app notifications.
+- Email notifications, where configured.
+
+Future:
+- WhatsApp notifications.
+- SMS notifications.
+
+### Acceptance Criteria
+
+- Notifications are generated from defined business events.
+- Users can view unread and read notifications.
+- Users can access the relevant record from a notification.
+- Duplicate alerts are controlled.
+
+---
+
+## Module 9: Reports and Analytics
+
+**Objective:** Help distributors understand financial recovery performance.
+
+### Required Reports
+
+1. Expired inventory report.
+2. Near-expiry inventory report.
+3. Return-eligible inventory report.
+4. Supplier-wise return report.
+5. Pending credit report.
+6. Credit discrepancy report.
+7. Monthly recovery report.
+
+### Important Financial Metrics
+
+- Total potential return value.
+- Total submitted return value.
+- Total approved value.
+- Total credit received.
+- Total pending credit.
+- Total rejected value.
+- Total unresolved discrepancy value.
+
+### Acceptance Criteria
+
+- Reports can be filtered by date and supplier.
+- Reports show clearly defined financial statuses.
+- Users can export reports to CSV.
+- Only authorised users can access financial information.
+
+---
+
+# 6. Main User Journey
+
+### Primary Workflow
+
+1. Distributor registers on PharmaReturn.
+2. Adds suppliers and their return policies.
+3. Imports existing inventory.
+4. System identifies batches approaching return eligibility.
+5. Inventory manager reviews eligible batches.
+6. Manager creates a return request.
+7. Request is submitted to the supplier outside the platform or through the distributor's existing communication process.
+8. Manager updates the request status.
+9. Supplier approves or rejects the return.
+10. Distributor uploads the credit note.
+11. Accountant reconciles the expected and actual credit amounts.
+12. Dashboard updates the recovery figures.
+
+**MVP principle:** PharmaReturn manages and records the workflow. It does not assume that suppliers are connected to the platform or that approvals happen automatically.
+
+---
+
+# 7. UI/UX Requirements
+
+### Design Direction
+
+The application should look like a professional B2B financial operations dashboard.
+
+Design principles:
+- Simple and uncluttered.
+- Desktop-first, responsive on mobile.
+- Clear tables and filters.
+- Easy-to-read financial metrics.
+- Minimal steps to create a return request.
+- Consistent status labels.
+- Clear error and confirmation messages.
+
+### Main Navigation
+
+1. Dashboard
+2. Inventory
+3. Suppliers
+4. Return Requests
+5. Credit Notes
+6. Reports
+7. Notifications
+8. Settings
+
+### Important Screens
+
+**Screen 1 — Login / Registration**
+
+Business account access.
+
+**Screen 2 — Dashboard**
+
+Recovery value, outstanding credits, upcoming deadlines and recent activity.
+
+**Screen 3 — Inventory**
+
+Searchable medicine batch table with filters for supplier, expiry and eligibility.
+
+**Screen 4 — Supplier Management**
+
+Supplier details and return-policy settings.
+
+**Screen 5 — Return Eligibility**
+
+List of potentially returnable batches and reasons for eligibility.
+
+**Screen 6 — Create Return Request**
+
+Select batches, enter quantities, review amounts and submit.
+
+**Screen 7 — Return Request Details**
+
+Status timeline, documents, batch details and supplier follow-up notes.
+
+**Screen 8 — Credit Note Reconciliation**
+
+Expected credit, actual credit and discrepancy.
+
+**Screen 9 — Reports**
+
+Financial recovery and operational reports.
+
+---
+
+# 8. Database Requirements
+
+Recommended database: PostgreSQL through Supabase.
+
+### Core Tables
+
+**1. businesses**
+
+- id
+- business_name
+- gstin
+- email
+- phone
+- address
+- created_at
+
+**2. users**
+
+- id
+- business_id
+- full_name
+- email
+- role
+- created_at
+
+**3. suppliers**
+
+- id
+- business_id
+- supplier_name
+- contact_person
+- email
+- phone
+- gstin
+- address
+- status
+- created_at
+
+**4. supplier_policies**
+
+- id
+- supplier_id
+- return_window_days
+- accepts_expired_stock
+- minimum_remaining_shelf_life_days
+- credit_method
+- policy_notes
+- source_document_url
+- verification_status
+- last_verified_at
+- updated_at
+
+**5. inventory_batches**
+
+- id
+- business_id
+- supplier_id
+- medicine_name
+- manufacturer
+- batch_number
+- expiry_date
+- quantity
+- purchase_price
+- invoice_number
+- invoice_date
+- created_at
+- updated_at
+
+**6. return_requests**
+
+- id
+- business_id
+- supplier_id
+- request_number
+- submission_date
+- expected_credit
+- approved_credit
+- status
+- remarks
+- created_by
+- created_at
+
+**7. return_request_items**
+
+- id
+- return_request_id
+- inventory_batch_id
+- requested_quantity
+- approved_quantity
+- expected_credit
+- approved_credit
+- rejection_reason
+
+**8. credit_notes**
+
+- id
+- business_id
+- supplier_id
+- return_request_id
+- credit_note_number
+- credit_note_date
+- credit_amount
+- document_url
+- reconciliation_status
+- created_at
+
+**9. notifications**
+
+- id
+- business_id
+- user_id
+- title
+- message
+- notification_type
+- is_read
+- created_at
+
+**10. activity_logs**
+
+- id
+- business_id
+- user_id
+- entity_type
+- entity_id
+- action
+- previous_value
+- new_value
+- created_at
+
+### Database Rules
+
+- Every business record must be associated with a business ID.
+- Enforce tenant-level isolation through Supabase Row Level Security.
+- Store timestamps in a consistent timezone and display them in the user's local timezone.
+- Use decimal/numeric fields for financial values, not floating-point numbers.
+- Preserve audit history for financial and status changes.
+- Avoid hard deletion of financial records; use archival or cancellation states.
+
+---
+
+# 9. Technology Stack
+
+| Layer | Recommended Technology |
+|---|---|
+| Frontend | Next.js / React |
+| UI | Tailwind CSS |
+| Backend | Supabase |
+| Database | PostgreSQL |
+| Authentication | Supabase Auth |
+| File Storage | Supabase Storage |
+| Data Validation | Zod |
+| Charts | Recharts |
+| Email | Resend or equivalent |
+| Deployment | Vercel |
+| Version Control | GitHub |
+
+### Architecture
+
+Frontend → Next.js API / Server Actions → Supabase → PostgreSQL
+
+File uploads → Supabase Storage
+
+Scheduled expiry checks → Scheduled backend jobs
+
+Notifications → In-app / Email
+
+Sensitive calculations, access checks and financial updates should be performed or validated server-side rather than trusted solely to the browser.
+
+---
+
+# 10. Non-Functional Requirements
+
+### Security
+
+- Secure authentication.
+- Business-level data isolation.
+- Role-based access.
+- Row Level Security.
+- Secure file storage.
+- No public access to private supplier or financial documents.
+- Audit logging for important actions.
+
+### Performance
+
+- Dashboard should load within approximately 3 seconds under normal pilot workloads.
+- Inventory search should return results quickly.
+- Bulk imports should provide clear progress and error feedback.
+- The application should support at least 10,000 batch records per pilot business as an initial design target.
+
+### Reliability
+
+- Prevent duplicate return submissions.
+- Preserve transaction history.
+- Handle failed file uploads safely.
+- Validate financial calculations.
+- Provide clear recovery options when imports fail.
+
+### Compatibility
+
+- Chrome, Edge and Firefox.
+- Desktop and tablet layouts.
+- Responsive mobile browser experience.
+
+---
+
+# 11. Regulatory and Operational Considerations
+
+PharmaReturn must be designed as a documentation and workflow management product.
+
+It should not:
+- Automatically approve medicine returns.
+- Promise that a supplier will accept a return.
+- Treat all manufacturers' return policies as identical.
+- Automatically authorise expired medicine redistribution.
+- Replace applicable statutory records or accounting processes without validation.
+
+The product should support configurable return workflows and retain evidence of the decisions made by the distributor and supplier.
+
+Before commercial deployment, obtain appropriate Indian pharmaceutical regulatory and GST/accounting advice. Return and credit-note handling must follow applicable requirements, including relevant CDSCO guidance and GST rules.
+
+---
+
+# 12. Development Roadmap — 12 Weeks
+
+### Phase 1: Foundation (Weeks 1–2)
+
+- Finalise requirements.
+- Design UI wireframes.
+- Create database schema.
+- Configure Supabase.
+- Implement authentication.
+- Set up business-level security.
+
+**Deliverable:** Working application foundation.
+
+### Phase 2: Inventory and Suppliers (Weeks 3–4)
+
+- Supplier CRUD.
+- Supplier policy configuration.
+- CSV/XLSX import.
+- Inventory management.
+- Import validation.
+
+**Deliverable:** Distributor can manage suppliers and import inventory.
+
+### Phase 3: Eligibility Engine (Weeks 5–6)
+
+- Expiry calculations.
+- Supplier-specific policy logic.
+- Eligibility statuses.
+- Upcoming deadline alerts.
+- Dashboard summary cards.
+
+**Deliverable:** System identifies potentially returnable batches.
+
+### Phase 4: Return Management (Weeks 7–8)
+
+- Return request creation.
+- Batch selection.
+- Request status tracking.
+- Document uploads.
+- Return history.
+
+**Deliverable:** Complete return-request workflow.
+
+### Phase 5: Credit Reconciliation (Weeks 9–10)
+
+- Credit-note upload.
+- Credit-note records.
+- Expected-versus-actual calculation.
+- Partial credit support.
+- Discrepancy alerts.
+- Financial reports.
+
+**Deliverable:** Core financial recovery workflow.
+
+### Phase 6: Testing and Pilot (Weeks 11–12)
+
+- Security testing.
+- Import testing.
+- Financial calculation testing.
+- User acceptance testing.
+- Fix usability issues.
+- Onboard 3–5 pilot distributors.
+
+**Deliverable:** MVP ready for controlled pilot deployment.
+
+---
+
+# 13. MVP Acceptance Criteria
+
+The MVP is considered ready when a pilot distributor can:
+
+1. Register and create a business account.
+2. Add suppliers and configure their return policies.
+3. Import medicine batch inventory.
+4. Identify batches that may qualify for returns.
+5. Understand why a batch is eligible or ineligible.
+6. Create a return request for multiple batches.
+7. Track the return request through its lifecycle.
+8. Upload a supplier credit note.
+9. Compare expected and actual credit values.
+10. Identify pending or short credits.
+11. View total recovery and pending financial values.
+12. Export a basic recovery report.
+
+A successful end-to-end test must demonstrate this complete workflow using sample data and at least one real-world pilot workflow with customer permission.
+
+---
+
+# 14. Out of Scope for MVP
+
+To protect the development timeline, the following should not be built initially:
+
+- Full pharmacy billing software.
+- Medicine sales and purchase management.
+- E-commerce marketplace.
+- Medicine redistribution marketplace.
+- Supplier-facing portal.
+- Automated ERP integrations.
+- AI-based return prediction.
+- Full OCR document extraction.
+- Native Android/iOS applications.
+- Automated GST filing.
+- Automated supplier approval.
+
+These features may be considered after the initial product has demonstrated demand.
+
+---
+
+# 15. Risks and Mitigation
+
+| Risk | Mitigation |
+|---|---|
+| Incorrect supplier policies | Manual verification and source tracking |
+| Poor inventory data | Import validation and error reporting |
+| Existing ERP competition | Position as an integration-friendly specialist product |
+| Low willingness to pay | Demonstrate actual recovery and time savings |
+| Supplier delays | Make manual follow-up and status tracking easy |
+| Credit-note discrepancies | Maintain document evidence and audit history |
+| Regulatory mistakes | Seek professional compliance review |
+
+---
+
+# 16. Product Validation Strategy
+
+Before investing heavily in development, conduct customer discovery.
+
+### Interview 10–15 distributors
+
+Ask:
+
+1. How many medicine batches do you typically manage?
+2. How do you identify near-expiry medicines?
+3. What happens when medicines approach expiry?
+4. How do you determine whether a supplier accepts returns?
+5. How do you prepare and submit return requests?
+6. How do you track supplier approvals?
+7. How do you identify pending credit notes?
+8. Have you ever received a credit amount lower than expected?
+9. How much time does the entire process take?
+10. Would you pay for a system that helps track and reconcile these returns?
+
+### Pilot Strategy
+
+- Recruit 3–5 distributors.
+- Start with one branch or warehouse per customer.
+- Import a limited inventory sample.
+- Configure a small number of verified supplier policies.
+- Track actual return requests.
+- Compare manual effort against the PharmaReturn workflow.
+- Measure discrepancies detected and credits recovered.
+
+Do not claim financial savings until actual customer results support them.
+
+---
+
+# 17. Final Product Strategy
+
+### Recommended Initial Focus
+
+**Customer:** Pharmaceutical distributors and stockists.
+
+**Primary problem:** Difficulty managing medicine returns and tracking supplier credit recovery.
+
+**Main differentiator:** Supplier-specific return eligibility combined with credit-note reconciliation.
+
+**Main MVP feature:** A complete return-to-credit tracking workflow.
+
+**Primary success metric:** Value of return credits successfully reconciled and the reduction in unresolved credit discrepancies.
+
+### Product Vision Beyond MVP
+
+PharmaReturn can eventually become a pharmaceutical returns intelligence platform connecting distributors, stockists, suppliers and manufacturers.
+
+Its long-term value could come from:
+- Verified supplier return-policy intelligence.
+- Cross-ERP inventory integrations.
+- Return and credit recovery analytics.
+- Supplier performance insights.
+- Automated document processing.
+- Multi-branch return operations.
+
+**The product should win by recovering money that distributors would otherwise overlook—not by trying to replace the software they already use.**

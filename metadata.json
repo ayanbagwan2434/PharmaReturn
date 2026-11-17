@@ -1,0 +1,8 @@
+{
+  "name": "PharmaReturn",
+  "description": "Pharmaceutical inventory return, supplier policy eligibility, and credit note reconciliation platform for distributors.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
